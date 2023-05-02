@@ -4,7 +4,7 @@ let score = 0;
 let activeRound;
 let gameEnded = false;
 const locations = [
-  { name: "Baseball Field", coords: { lat: 34.245680, lng: -118.526382 } },
+  { name: "Baseball Field", coords: { lat: 34.2447, lng: -118.526382 } },
   { name: "Sequoia Hall", coords: { lat: 34.240407, lng: -118.527927 } },
   { name: "Student Recreation Center", coords: { lat: 34.239977, lng: -118.524889 } },
   { name: "Tennis Courts", coords: { lat: 34.244150, lng: -118.524019 } },
@@ -16,6 +16,7 @@ async function initMap() {
   map = new Map(document.getElementById("map"), {
     center: { lat: 34.242573, lng: -118.529456 },
     zoom: 16,
+    mapTypeId: 'satellite',
     draggable: false,
     zoomControl: false,
     scrollwheel: false,
