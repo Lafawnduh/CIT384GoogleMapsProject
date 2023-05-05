@@ -24,6 +24,7 @@ async function initMap() {
     mapTypeControl: false,
     fullscreenControl: false,
     streetViewControl: false,
+    disableTilt: true,
     styles: [
       {
         featureType: "all",
