@@ -12,6 +12,7 @@ html {
   float: left;
 }
 
+ /* Tilt functionality fix */
 .gm-tilt {
   display: none !important;
 }

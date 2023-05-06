@@ -3,6 +3,8 @@ let rounds = 5;
 let score = 0;
 let activeRound;
 let gameEnded = false;
+
+//locations for the game
 const locations = [
   { name: "Baseball Field", coords: { lat: 34.2447, lng: -118.526382 } },
   { name: "Sequoia Hall", coords: { lat: 34.240407, lng: -118.527927 } },
@@ -11,6 +13,7 @@ const locations = [
   { name: "University Hall", coords: { lat: 34.239760, lng: -118.532150 } },
 ];
 
+//Map API and parameters
 async function initMap() {
   const { Map, LatLngBounds, Rectangle } = await google.maps.importLibrary("maps");
   map = new Map(document.getElementById("map"), {
@@ -36,14 +39,16 @@ async function initMap() {
     ]
   });
 
+//timer
   map.addListener("dblclick", (e) => {
     if (!startTime) {
       startTime = new Date().getTime();
       setInterval(updateTimer, 1000);
     }
+
+    //Incorrect / Correct checker
     if (activeRound) {
       let isCorrect = false;
-  
       if (e.latLng.lat() > activeRound.coords.lat - 0.001 && e.latLng.lat() < activeRound.coords.lat + 0.001 &&
           e.latLng.lng() > activeRound.coords.lng - 0.001 && e.latLng.lng() < activeRound.coords.lng + 0.001) {
         document.getElementById("feedback").textContent = "Correct!";
@@ -53,6 +58,7 @@ async function initMap() {
         document.getElementById("feedback").textContent = "Wrong!";
       }
   
+      //rectangles red and green
       const rectangle = new Rectangle({
         strokeColor: isCorrect ? "#008000" : "#FF0000",
         strokeOpacity: 0.8,
@@ -68,11 +74,12 @@ async function initMap() {
       },
       });
   
+      //Ending the game
       rounds = rounds - 1;
       if (rounds > 0) {
         startRound();
       } else {
-        gameEnded = true;
+        gameEnded = true;  //end the game and provide the text
         document.getElementById("prompt").textContent = "Game over!";
         document.getElementById("score").textContent = `You got ${score} correct and ${5 - score} incorrect.`;
         document.getElementById("feedback").textContent = "";
@@ -81,9 +88,11 @@ async function initMap() {
     }
   });
 
+  //Starting the round
   startRound();
 }
 
+//iterrating between each round and providing score
 function startRound() {
   activeRound = locations[rounds - 1];
   document.getElementById("prompt").textContent = `Round ${6 - rounds}: Double click on the ${activeRound.name}`;
@@ -92,6 +101,7 @@ function startRound() {
 
 let startTime = null;
 
+//Updating the timer
 function updateTimer() {
   if (startTime && !gameEnded) {
     const currentTime = new Date().getTime();
