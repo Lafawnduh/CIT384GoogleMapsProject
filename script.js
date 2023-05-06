@@ -15,7 +15,7 @@ async function initMap() {
   const { Map, LatLngBounds, Rectangle } = await google.maps.importLibrary("maps");
   map = new Map(document.getElementById("map"), {
     center: { lat: 34.242573, lng: -118.529456 },
-    zoom: 17,
+    zoom: 16,
     mapTypeId: 'satellite',
     draggable: false,
     zoomControl: false,
